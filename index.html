@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- saved from url=(0026)http://ajaxime.chasen.org/ -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="taku.css" media="all">
+
+<title>Ajax IME: Web-based Japanese Input Method</title>
+
+</head><body><h1>Ajax IME: Web-based Japanese Input Method</h1>
+
+<br>
+<div class="main">
+<p>Webベースの日本語入力サービスです。海外からでもブラウザさえあれば日本語を入力す
+ることができます。<br>特別なソフトは必要ありません。</p>
+<script type="text/javascript" charset="UTF-8" src="ime.js"></script>
+
+<p>
+</p><form name="SwitchButton" action="">
+<p><input id="test" value="IME On/Off" onclick="ImeChangeMode()" name="button" type="button"><br></p>
+</form>
+<textarea id="test" cols="45" rows="18" style="background-color: rgb(240, 248, 255); "></textarea>
+<p></p>
+<h3>使い方</h3>
+<ul>
+<li>お使いのコンピュータの日本語入力を切りかえて直接入力にします。
+</li><li>Alt-o (Ctrl-9) で Ajax IMEモードに変更します。(ボタンで切り替えるかえることもできます)
+</li><li>適当な文をローマ字で入力します。
+</li><li>spaceを押して漢字に変換します。続けて押すことで候補選択を行います。
+</li><li>returnを押す、もしくは次の入力を開始することで入力を確定します。
+</li><li>F9で強制的にカタカナに、F8で強制的にアルファベットに変換します。
+</li><li>再度 Alt-o (Ctrl-9)で直接入力に戻ります</li>
+<li>海外旅行先や留学先, 海外のネットカフェなど日本語入力環境が
+    無いパソコンからご使用ください。
+</li><li>Firefox, Internet Explorer, Safari3, Chrome で動作確認をしています。Opera では動作しません。
+</li></ul>
+
+<h2><a name="bookmarklet">どこでも AjaxIME (New!)</a></h2>
+<p>
+ごく簡単な作業でWeb上のほぼ全ての入力フォームでAjaxIME経由で日本語入力ができるようになります。</p>
+<ul>
+ <li><a href="javascript:(function(){var s=document.createElement(%22script%22);s.charset=%22UTF-8%22;s.src=%22http://ajaxime.chasen.org/ime.js%22;document.body.appendChild(s);setTimeout(function(){ ImeInit(); ImeChangeMode();}, 2000);})();">[AjaxIME]</a>を右クリックしてリンクをブックマーク(お気に入り)に登録してください。
+ </li><li>通常どおりウェブブラウジングをします。
+ </li><li>AjaxIME経由で入力したいとき、さきほどブックマークしたリンクにアクセスします。
+ </li><li>数秒後にフォームが水色になれば成功です。AjaxIMEと同じ方法で直接入力
+     できるようになります。
+ </li><li>水色にならない場合は Alt + O で直接モードを変更してみてください。
+ </li><li>ページによっては入力欄が極端にずれたり、そもそも入力できない場合も
+     ございます。御了承ください。
+</li></ul>
+
+</div>
+<div style="position: absolute; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; text-align: left; display: none; "><input type="text" autocomplete="off" style="background-color: rgb(240, 248, 255); border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; text-decoration: underline; text-align: left; display: none; "><div style="padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-color: rgb(0, 0, 0); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; float: left; text-align: left; display: none; "></div></div></body></html>
