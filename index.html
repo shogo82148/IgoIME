@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <!-- saved from url=(0026)http://ajaxime.chasen.org/ -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
 <link rel="stylesheet" href="taku.css" media="all">
 
 <title>Ajax IME: Web-based Japanese Input Method</title>
@@ -11,13 +12,19 @@
 <div class="main">
 <p>Webベースの日本語入力サービスです。海外からでもブラウザさえあれば日本語を入力す
 ることができます。<br>特別なソフトは必要ありません。</p>
+<p>
+<a href="http://ajaxime.chasen.org/">本家AjaxIME</a>が最新のブラウザでは上手く動かないようなので、
+<a href="https://twitter.com/#!/shogo82148">@shogo82148</a>が少し書きなおしたものです。<br>
+不具合などのお問い合わせは、本家ではなく
+<a href="https://twitter.com/#!/shogo82148">@shogo82148</a>へお願いします。
+</p>
 <script type="text/javascript" charset="UTF-8" src="ime.js"></script>
 
 <p>
 </p><form name="SwitchButton" action="">
 <p><input id="test" value="IME On/Off" onclick="ImeChangeMode()" name="button" type="button"><br></p>
 </form>
-<textarea id="test" cols="45" rows="18" style="background-color: rgb(240, 248, 255); "></textarea>
+<textarea id="test" cols="45" rows="18" style="outline:none"></textarea>
 <p></p>
 <h3>使い方</h3>
 <ul>
@@ -37,7 +44,7 @@
 <p>
 ごく簡単な作業でWeb上のほぼ全ての入力フォームでAjaxIME経由で日本語入力ができるようになります。</p>
 <ul>
- <li><a href="javascript:(function(){var s=document.createElement(%22script%22);s.charset=%22UTF-8%22;s.src=%22http://ajaxime.chasen.org/ime.js%22;document.body.appendChild(s);setTimeout(function(){ ImeInit(); ImeChangeMode();}, 2000);})();">[AjaxIME]</a>を右クリックしてリンクをブックマーク(お気に入り)に登録してください。
+ <li><a href="javascript:(function(){var s=document.createElement(%22script%22);s.charset=%22UTF-8%22;s.src=%22http://shogo82148.github.com/AjaxIME/ime.js%22;document.body.appendChild(s);setTimeout(function(){ ImeInit(); ImeChangeMode();}, 2000);})();">[AjaxIME]</a>を右クリックしてリンクをブックマーク(お気に入り)に登録してください。
  </li><li>通常どおりウェブブラウジングをします。
  </li><li>AjaxIME経由で入力したいとき、さきほどブックマークしたリンクにアクセスします。
  </li><li>数秒後にフォームが水色になれば成功です。AjaxIMEと同じ方法で直接入力

@@ -1,6 +1,7 @@
 /*
   Ajax IME: http://ajaxime.chasen.org/
   Author: Taku Kudo <taku@chasen.org>
+  Modified by Ichinose Shogo <shogo82148@gmail.com>
 
   (C) Taku Kudo, all rights reserve rd.
   Personal use only!
@@ -20,7 +21,7 @@ if (typeof(getComputedStyle) == 'undefined') {
   function capitalize(prop) {
     return prop.replace(/-(.)/g, function(m, m1) { return m1.toUpperCase(); })
   }
-  function getComputedStyle(element, pseudo){
+  getComputedStyle = function(element, pseudo){
     return {
       currentStyle : element.currentStyle,
         getPropertyValue : function(prop){
@@ -167,6 +168,9 @@ function AjaxIME(doc) {
     ImePreEdit_.style.textDecoration = 'underline';
     ImePreEdit_.style.textUnderLineColor = 'red';
     ImePreEdit_.style.textAlign = 'left';
+    ImePreEdit_.style.outline = 'none';
+    ImePreEdit_.style.margin = '0px';
+    
     ImeCandidates_.style.padding = '0px';
     ImeCandidates_.style.borderColor = '#000';
     ImeCandidates_.style.borderWidth = '1px';
@@ -662,7 +666,7 @@ function ImeChangeMode() {
       ImeChangeModeRecursive(frames[i].window);
     }
   }
-  document.ImeChangeMode();
+  if(document.ImeChangeMode) document.ImeChangeMode();
   ImeChangeModeRecursive(window);
 }
 
