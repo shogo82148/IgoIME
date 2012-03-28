@@ -5,33 +5,33 @@
 
 <link rel="stylesheet" href="taku.css" media="all">
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript" charset="UTF-8" src="http://shogo82148.github.com/igo-javascript/build/igo.min.js"></script>
-<script type="text/javascript" charset="UTF-8" src="http://shogo82148.github.com/igo-javascript/lib/zip.min.js"></script>
+<script type="text/javascript" charset="UTF-8" src="lib/igo.min.js"></script>
+<script type="text/javascript" charset="UTF-8" src="lib/zip.min.js"></script>
 <script>
 $(function() {
     function event(data) {
+        var i, j, results, tmp;
         if(data.event=='downloaded') {
             $('#loading').text('辞書を展開中・・・');
         } else if(data.event=='load') {
             $('#loading').hide();
             $('#inputform').show();
         } else if(data.event=="result" && data.method=="parseNBest") {
-            var nodeslist = data.morpheme;
-            var result = '';
-            for(var j=0;j<nodeslist.length;++j) {
-                var nodes = nodeslist[j];
-                for(var i=0;i<nodes.length;i++) {
-                    result += '<div class="morph"><div class="surface">' + nodes[i].surface + '</div><div class="feature">' + nodes[i].feature + '</div></div>';
+            results = [];
+            for(i=0;i<data.morpheme.length;i++) {
+                tmp = [];
+                for(j=0;j<data.morpheme[i].length;j++) {
+                    tmp.push(data.morpheme[i][j].feature);
                 }
-                result += '<div>EOS</div>';
+                results.push(tmp.join(''));
             }
-            $('#result').html(result);
+            
+            ImeRequestCallback(results);
         } else if(data.event=="error") {
             $('#result').text('エラー発生');
         }
     }
 
-    var post;
     if(window.useNodeJS) {
         event({event: 'load'});
         post = function(data) {
@@ -46,8 +46,8 @@ $(function() {
         }
     } else {
         var BlobBuilder = window.MozBlobBuilder || window.WebKitBlobBuilder || window.MSBlobBuilder || window.BlobBuilder;
-        var worker = new Worker('http://shogo82148.github.com/igo-javascript/web.js');
-        igo.getServerFileToArrayBufffer("ipadic.zip", function(buffer) {
+        var worker = new Worker('web.js');
+        igo.getServerFileToArrayBufffer("skkdic.zip", function(buffer) {
             event({event: 'downloaded'});
             var bb = new BlobBuilder();
             bb.append(buffer);
@@ -56,13 +56,9 @@ $(function() {
         post = function(data) {
             worker.postMessage(data);
         }
-	worker.addEventListener("message", function(e) {event(e.data);});
+	worker.addEventListener("message", function(e) {event(e.data);console.log(e.data);});
 	worker.addEventListener("error", function() {event({event:"error"});});
     }
-
-    $('#morph').click(function() {
-        post({method: 'parseNBest', text: $('#input').val(), best: 3});
-    });
 });
 </script>
 <style type="text/css">
@@ -87,17 +83,14 @@ div.feature {
 </style>
 <title>Ajax IME: Web-based Japanese Input Method</title>
 
-</head><body><h1>Ajax IME: Web-based Japanese Input Method</h1>
+</head><body><h1>Ajax IgoIME: Web-based Japanese Input Method powered by Igo</h1>
 
 <br>
 <div class="main">
 <p>Webベースの日本語入力サービスです。海外からでもブラウザさえあれば日本語を入力す
 ることができます。<br>特別なソフトは必要ありません。</p>
 <p>
-<a href="http://ajaxime.chasen.org/">本家AjaxIME</a>が最新のブラウザでは上手く動かないようなので、
-<a href="https://twitter.com/#!/shogo82148">@shogo82148</a>が少し書きなおしたものです。<br>
-不具合などのお問い合わせは、本家ではなく
-<a href="https://twitter.com/#!/shogo82148">@shogo82148</a>へお願いします。
+これは<a href="http://shogo82148.github.com/igo-javascript">igo-javascript</a>を使ったバージョンです。
 </p>
 <script type="text/javascript" charset="UTF-8" src="ime.js"></script>
 
@@ -127,5 +120,15 @@ div.feature {
 </li><li>Firefox, Internet Explorer, Safari3, Chrome で動作確認をしています。Opera では動作しません。
 </li></ul>
 
+<h3>本家との違い</h3>
+<p>
+<a href="http://ajaxime.chasen.org/">本家AjaxIME</a>はサーバ側で変換を行なっていますが、
+このIMEはJavaScriptのみを使ってクライアントで変換を行います。
+入力内容が一切送信されないため、秘密の内容でも安心して入力することができます。
+</p>
+<p>
+<a href="https://twitter.com/#!shogo82148">shogo82148</a>が独自に改変したものなので、
+何かあった場合は本家ではなく私の方に連絡をお願いします。
+</p>
 </div>
 <div style="position: absolute; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; text-align: left; display: none; "><input type="text" autocomplete="off" style="background-color: rgb(240, 248, 255); border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; text-decoration: underline; text-align: left; display: none; "><div style="padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-color: rgb(0, 0, 0); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; float: left; text-align: left; display: none; "></div></div></body></html>

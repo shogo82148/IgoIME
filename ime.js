@@ -120,7 +120,7 @@ function cloneElement(elmOriginal, elmClone) {
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
-var ImeCGI_ = "http://api.chasen.org/ajaxime/";
+var post;
 var ImeBackGroundColor_ = 'aliceblue';
 var ImeID_ = 0;
 var ImeCache_ = [];
@@ -373,14 +373,11 @@ function AjaxIME(doc) {
 
   function ImeNop() {
     ImeInsertText('', false);
-    if (ImeRawInput_ != '')
-      ImeLog('cancel');
   }
 
   function ImeSelect(delay) {
     var result = ImeResults_.length ? ImeResults_[ImeSelectedIndex_] : ImePreEdit_.value;
     ImeInsertText(result, delay);
-    ImeLog(result);
   }
 
   function ImeIsHidden() {
@@ -430,16 +427,6 @@ function AjaxIME(doc) {
     ImePreEdit_.focus();
   }
 
-  function ImeLog(result) {
-    if (ImeRawInput_ == '') ImeRawInput_ = result;
-    if (ImeSelectedIndex_ >= 1) ImeCache_[ImeRawInput_] = result;
-    var request = "action=log&query=" + encodeURI(ImeRawInput_) + 
-      "&result=" + encodeURI(result) + "&sel=" + ImeSelectedIndex_ +
-      "&id=" + ImeID_;
-    ImeJsonpLog_ = new JSONRequest(ImeCGI_ + request);
-    ++ImeID_;
-  }
-
   function ImeRequestCallback(result) {
     try {
       ImeClearResults();
@@ -464,10 +451,8 @@ function AjaxIME(doc) {
   function ImeShowCandidates() {
     if (!ImeIsHidden()) return;
     if (ImeRawInput_ == '') ImeRawInput_ = roma2hiragana(ImePreEdit_.value, false);
-    var request = "action=conv&to=" + ImeTo_ + "&query=" + encodeURI(ImeRawInput_) +
-      "&id=" + ImeID_;
     ImeCurrentDocument_ = ImeDocument_;
-    ImeJsonp_ = new JSONRequest(ImeCGI_ + request);
+    post({method: 'parseNBest', text: ImeRawInput_, best: 20});
   }
 
   function ImePreEditKeyDown(event)  {
