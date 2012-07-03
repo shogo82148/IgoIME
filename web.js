@@ -13,7 +13,7 @@ function loadTagger(dicdir) {
     var wdc = new igo.WordDic(files['word2id'], files['word.dat'], files['word.ary.idx'], files['word.inf']);
     var unk = new igo.Unknown(category);
     var mtx = new igo.Matrix(files['matrix.bin']);
-    return new igo.Tagger(wdc, unk, mtx);
+    return new igo.Tagger(wdc, null, mtx);
 }
 
 function igo_request(data) {
