@@ -77,7 +77,7 @@ function igo_request(data) {
 
 if(isWebWorker) {
     // for WebWorker
-    importScripts("lib/igo.min.js", "lib/zip.min.js");
+    importScripts("lib/igo-javascript/build/igo.min.js", "lib/zip.min.js");
     var loadFile = function(dicdir, name) {
 	return dicdir.files[name].inflate();
     };
@@ -103,7 +103,7 @@ if(isWebWorker) {
     // for Node.js
     var express = require('express');
     var fs = require('fs');
-    var igo = require('./lib/igo.min');
+    var igo = require('./lib/igo-javascript/build/igo.min');
     var app = express.createServer();
 
     var loadFile = function(dicdir, name) {
